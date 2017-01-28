@@ -1,0 +1,116 @@
+# Parameters
+# ------------------------------------------------
+/app/config/parameters.yml
+
+
+# Directory with cache, logs, sessions etc.
+# ------------------------------------------------
+/var/*
+!/var/SymfonyRequirements.php
+
+
+# Cache
+# ------------------------------------------------
+/var/bootstrap.php.cache
+!/var/cache
+/var/cache/*
+!/var/cache/.gitkeep
+
+
+# Sessions
+# ------------------------------------------------
+!/var/sessions
+/var/sessions/*
+!/var/sessions/.gitkeep
+
+
+# Logs
+# ------------------------------------------------
+!/var/logs
+/var/logs/*
+!/var/logs/.gitkeep
+
+
+# Managed by Composer
+# ------------------------------------------------
+# - Bin
+/bin/*
+!/bin/console
+!/bin/symfony_requirements
+
+# - Vendors
+/vendor/
+
+
+# Resources (generated, user's content etc.)
+# ------------------------------------------------
+# - Assets (automatically generated)
+/web/bundles/
+/web/css/
+/web/js/
+/web/fonts/
+/web/images/
+/web/videos/
+
+# - Uploaded content (user's content)
+/web/upload/
+
+
+# Build files
+# ------------------------------------------------
+/build/
+
+
+# PHPUnit
+# ------------------------------------------------
+/app/phpunit.xml
+/phpunit.xml
+
+
+# Generated databases
+# ------------------------------------------------
+/data/
+*.sql
+*.sqlite
+
+
+# Composer
+# ------------------------------------------------
+/composer.phar
+
+
+# Shell scripts
+# ------------------------------------------------
+/*.sh
+
+
+# Compiled source
+# ------------------------------------------------
+*.com
+*.class
+*.dll
+*.exe
+*.o
+*.so
+
+
+# OS generated files
+# ------------------------------------------------
+*~
+.DS_Store
+.DS_Store?
+*.swp
+._*
+*.out
+*.idea
+.Spotlight-V100
+.Trashes
+Icon?
+ehthumbs.db
+Thumbs.db
+/nbproject/
+/.settings
+/.buildpath
+/.project
+.~lock.*
+~$*
