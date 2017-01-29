@@ -10,3 +10,21 @@ homepage:
     jumbotron:
         title: Cześć :)
         description: W tej aplikacji możesz przeglądać kody, usuwać je, a także generować nowe. Baw się dobrze.
+
+label:
+    code:
+        value: Kod
+        date: Utworzono
+    pagination:
+        title: Stronicowanie
+        previous: Poprzednie
+        next: Następne
+
+information:
+    code:
+        no_data: Niestety nie ma kodów
+
+menu:
+    codes_all: Pokaż wszystkie kody
+    codes_add: Dodaj 10 losowych kodów
+    codes_delete: Usuń kody

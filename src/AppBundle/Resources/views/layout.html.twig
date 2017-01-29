@@ -22,6 +22,16 @@
                 padding-top: 50px;
                 padding-bottom: 20px;
             }
+
+            {#
+             # Firefox has some awkward fieldset styling involving width that interferes with the responsive table.
+             # This cannot be overridden without a Firefox-specific hack.
+             #}
+            @-moz-document url-prefix() {
+                fieldset {
+                    display: table-cell;
+                }
+            }
         </style>
     {% endblock %}
 
@@ -49,12 +59,20 @@
                 <span class="icon-bar"></span>
                 <span class="icon-bar"></span>
             </button>
-            <a class="navbar-brand" href="{{ path('app.code.index') }}">{{ 'app.title' | trans }}</a>
+            <a class="navbar-brand" href="{{ path('app.homepage') }}">{{ 'app.title' | trans }}</a>
         </div>
         <div id="navbar" class="navbar-collapse collapse">
-            {#
-             # Here will be navigation :)
-             #}
+            <ul class="nav navbar-nav">
+                <li>
+                    <a href="{{ path('app.code.index') }}">{{ 'menu.codes_all' | trans }}</a>
+                </li>
+                <li>
+                    <a href="">{{ 'menu.codes_add' | trans }}</a>
+                </li>
+                <li>
+                    <a href="">{{ 'menu.codes_delete' | trans }}</a>
+                </li>
+            </ul>
         </div><!--/.navbar-collapse -->
     </div>
 </nav>

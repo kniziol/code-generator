@@ -1,0 +1,6 @@
+services:
+    # ----------------------------------------------
+    # Helper
+    # ----------------------------------------------
+    app.helper.pagination:
+        class: AppBundle\Helper\PaginationHelper

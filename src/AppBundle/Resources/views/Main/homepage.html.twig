@@ -1,0 +1,34 @@
+{% extends '@App/layout.html.twig' %}
+{% trans_default_domain 'AppBundle' %}
+
+{% block before_content %}
+    <div class="jumbotron">
+        <div class="container">
+            <h1>{{ 'homepage.jumbotron.title' | trans }}</h1>
+            <p>{{ 'homepage.jumbotron.description' | trans }}</p>
+            <p>
+                <a href="{{ path('app.code.index') }}" class="btn btn-success">{{ 'menu.codes_all' | trans }}</a>
+            </p>
+        </div>
+    </div>
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style type="text/css">
+        .jumbotron {
+            padding-top: 30px;
+            padding-bottom: 30px;
+        }
+
+        .jumbotron h1 {
+            font-size: 45px;
+            margin-top: 0;
+        }
+
+        .jumbotron p:last-of-type {
+            margin-bottom: 0;
+        }
+    </style>
+{% endblock %}
