@@ -1,0 +1,74 @@
+{% trans_default_domain 'error-pages' %}
+
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>{{ 'error_page.404.title' | trans }}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        * {
+            line-height: 1.2;
+            margin: 0;
+        }
+
+        html {
+            color: #888;
+            display: table;
+            font-family: sans-serif;
+            height: 100%;
+            text-align: center;
+            width: 100%;
+        }
+
+        body {
+            display: table-cell;
+            vertical-align: middle;
+            margin: 2em auto;
+        }
+
+        h1 {
+            color: #555;
+            font-size: 4em;
+            font-weight: 400;
+            margin-bottom: 10px;
+        }
+
+        p {
+            font-size: 1.5em;
+            margin: 0 auto 5px;
+        }
+
+        a {
+            font-size: 0.65em;
+            text-decoration: none;
+        }
+
+        @media only screen and (max-width: 280px) {
+            body, p {
+                width: 95%;
+            }
+
+            h1 {
+                font-size: 1.5em;
+                margin: 0 0 0.3em;
+            }
+        }
+    </style>
+</head>
+<body>
+
+{% if block('error_number') is defined %}
+    {% set error_number = block('error_number') %}
+    <h1>{{ error_number }}</h1>
+{% endif %}
+
+{% if block('error_title') is defined %}
+    {% set error_title = block('error_title') %}
+    <p>{{ error_title }}</p>
+{% endif %}
+
+<p><a href="{{ path('app.code.index') }}">{{ 'error_page.common.homepage' | trans }} &rsaquo;</a></p>
+
+</body>
+</html>

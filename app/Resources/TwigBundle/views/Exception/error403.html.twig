@@ -1,0 +1,5 @@
+{% extends '@Twig/Exception/base.html.twig' %}
+{% trans_default_domain 'error-pages' %}
+
+{% block error_number %}403{% endblock %}
+{% block error_title %}{{ 'error_page.title.403' | trans }}{% endblock %}
