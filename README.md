@@ -56,6 +56,12 @@ Symfony-based application that manages random codes. Allows to display, delete a
     $ php bin/console doctrine:schema:create
     ```
 
+3. Populate tables (using DataFixtures)
+
+     ```bash
+    $ php bin/console hautelook_alice:fixtures:load --no-interaction --purge-with-truncate
+    ```
+
 # Running
 
 Run command:

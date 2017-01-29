@@ -1,0 +1,4 @@
+AppBundle\Entity\Code:
+    code_{1..15}:
+        createdAt: <datetime()>
+        value: <isbn10()>
