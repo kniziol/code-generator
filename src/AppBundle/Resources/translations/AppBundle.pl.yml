@@ -1,0 +1,12 @@
+app:
+    title: Menedżer Kodów
+    company:
+        name: Meritoo
+        www: http://www.meritoo.pl
+    action:
+        toggle_navigation: Włącz/wyłącz menu
+
+homepage:
+    jumbotron:
+        title: Cześć :)
+        description: W tej aplikacji możesz przeglądać kody, usuwać je, a także generować nowe. Baw się dobrze.

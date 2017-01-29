@@ -21,6 +21,13 @@ Symfony-based application that manages random codes. Allows to display, delete a
 
 > How to install Composer: https://getcomposer.org/download
 
+3. (optional) Install assets (stylesheets, javascripts, images and other stuff)
+
+    ```bash
+    $ php bin/console assets:install --symlink
+    ```
+> This step is optional, because all assets will be installed automatically after installing packages by Composer (step 2)
+
 # Configuration
 
 1. Database connection
