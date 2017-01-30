@@ -21,6 +21,7 @@ class MainControllerTest extends WebTestCase
 
         $this->assertEquals(200, $statusCode);
         $this->assertEquals('Cześć :)', $crawler->filter('.jumbotron .container h1')->text());
+        $this->assertEquals(0, $crawler->filter('.container .row h1.col-xs-12')->count());
     }
 
     public function testJumbotronButtonClick()

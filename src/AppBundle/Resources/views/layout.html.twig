@@ -77,6 +77,20 @@
     </div>
 </nav>
 
+{% block title_container %}
+    {% if block('title') is defined %}
+        {% set title = block('title') | trim %}
+
+        {% if title is not empty %}
+            <div class="container">
+                <div class="row">
+                    <h1 class="col-xs-12">{{ title }}</h1>
+                </div>
+            </div>
+        {% endif %}
+    {% endif %}
+{% endblock %}
+
 {% block before_content %}
 {% endblock %}
 

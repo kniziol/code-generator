@@ -23,8 +23,13 @@ label:
 information:
     code:
         no_data: Niestety nie ma kodów
+        count: Ilość kodów
 
 menu:
     codes_all: Pokaż wszystkie kody
     codes_add: Dodaj 10 losowych kodów
     codes_delete: Usuń kody
+
+title:
+    codes:
+        list: Wygenerowane kody

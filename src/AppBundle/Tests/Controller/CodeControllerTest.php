@@ -36,6 +36,7 @@ class CodeControllerTest extends WebTestCase
         $statusCode = $client->getResponse()->getStatusCode();
 
         $this->assertEquals(200, $statusCode);
+        $this->assertEquals('Wygenerowane kody', $crawler->filter('.container .row h1.col-xs-12')->text());
 
         /*
          * Headers of table / list

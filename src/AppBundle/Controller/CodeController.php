@@ -81,6 +81,7 @@ class CodeController extends BaseController
             'codes'              => $codes,
             'offset'             => $offset,
             'pagesCount'         => $pagesCount,
+            'allCodesCount'      => $allCodesCount,
             'nextPageNumber'     => $nextPageNumber,
             'previousPageNumber' => $previousPageNumber,
         ];

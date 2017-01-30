@@ -1,9 +1,14 @@
 {% extends '@App/layout.html.twig' %}
 {% trans_default_domain 'AppBundle' %}
 
+{% block title %}{{ 'title.codes.list' | trans }}{% endblock %}
+
 {% block content %}
     <div class="table-responsive">
         <table class="table table-striped table-hover">
+            <caption class="text-right">
+                <span class="value-name">{{ 'information.code.count' | trans }}:</span> <span class="badge pull-right">{{ allCodesCount }}</span>
+            </caption>
             <thead>
                 <tr>
                     <th>#</th>
@@ -61,6 +66,14 @@
     <style type="text/css">
         .table > tbody > tr > td.no-data {
             padding: 30px;
+        }
+
+        .table caption {
+            padding: 0;
+        }
+
+        .table caption .value-name {
+            padding-right: 5px;
         }
     </style>
 {% endblock %}
