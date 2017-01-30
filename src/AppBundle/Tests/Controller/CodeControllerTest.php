@@ -4,6 +4,12 @@ namespace AppBundle\Tests\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
 
+/**
+ * Test cases for the code-related controller
+ *
+ * @author    Krzysztof Niziol <krzysztof.niziol@meritoo.pl>
+ * @copyright Meritoo.pl
+ */
 class CodeControllerTest extends WebTestCase
 {
     public function testIndex404()
@@ -96,5 +102,40 @@ class CodeControllerTest extends WebTestCase
         $client->request('GET', '/codes/3');
         $statusCode = $client->getResponse()->getStatusCode();
         $this->assertEquals(404, $statusCode);
+    }
+
+    public function testIndexPaginationClick()
+    {
+        $client = static::createClient();
+        $tableBodySelector = '.table-responsive .table tbody';
+        $pagerSelector = '.pager li';
+
+        /*
+         * Load 1st page
+         */
+        $crawler = $client->request('GET', '/codes');
+        $statusCode = $client->getResponse()->getStatusCode();
+
+        $this->assertEquals(10, $crawler->filter($tableBodySelector)->children()->count());
+        $this->assertEquals(200, $statusCode);
+
+        /*
+         * Click "next" button in pager
+         */
+        $nextLink = $crawler->filter(sprintf('%s:first-of-type a', $pagerSelector))->link();
+        $crawler = $client->click($nextLink);
+        $statusCode = $client->getResponse()->getStatusCode();
+
+        $this->assertEquals(200, $statusCode);
+        $this->assertEquals(5, $crawler->filter($tableBodySelector)->children()->count());
+
+        /*
+         * Click "previous" button in pager
+         */
+        $nextLink = $crawler->filter(sprintf('%s:first-of-type a', $pagerSelector))->link();
+        $client->click($nextLink);
+
+        $statusCode = $client->getResponse()->getStatusCode();
+        $this->assertEquals(200, $statusCode);
     }
 }
