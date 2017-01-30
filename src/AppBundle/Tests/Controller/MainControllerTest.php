@@ -2,7 +2,7 @@
 
 namespace AppBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 
 /**
@@ -15,11 +15,10 @@ class MainControllerTest extends WebTestCase
 {
     public function testHomepage()
     {
-        $client = static::createClient();
+        $client = $this->makeClient();
         $crawler = $client->request('GET', '/');
-        $statusCode = $client->getResponse()->getStatusCode();
 
-        $this->assertEquals(200, $statusCode);
+        $this->assertStatusCode(200, $client);
         $this->assertEquals('Cześć :)', $crawler->filter('.jumbotron .container h1')->text());
         $this->assertEquals(0, $crawler->filter('.container .row h1.col-xs-12')->count());
     }
@@ -33,11 +32,10 @@ class MainControllerTest extends WebTestCase
         /*
          * Load homepage
          */
-        $client = static::createClient();
+        $client = $this->makeClient();
         $crawler = $client->request('GET', '/');
-        $statusCode = $client->getResponse()->getStatusCode();
 
-        $this->assertEquals(200, $statusCode);
+        $this->assertStatusCode(200, $client);
 
         /*
          * Click button in .jumbotron element to load list of codes
@@ -45,9 +43,8 @@ class MainControllerTest extends WebTestCase
         $button = $crawler->filter($buttonSelector)->link();
         /* @var $crawler Crawler */
         $crawler = $client->click($button);
-        $statusCode = $client->getResponse()->getStatusCode();
 
-        $this->assertEquals(200, $statusCode);
+        $this->assertStatusCode(200, $client);
         $this->assertEquals(1, $crawler->filter($codesTableSelector)->count());
 
         /*
@@ -55,9 +52,8 @@ class MainControllerTest extends WebTestCase
          */
         $brandLink = $crawler->filter($brandLinkSelector)->link();
         $crawler = $client->click($brandLink);
-        $statusCode = $client->getResponse()->getStatusCode();
 
-        $this->assertEquals(200, $statusCode);
+        $this->assertStatusCode(200, $client);
         $this->assertEquals(1, $crawler->filter($buttonSelector)->count());
     }
 }

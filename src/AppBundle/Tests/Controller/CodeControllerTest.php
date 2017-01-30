@@ -2,7 +2,7 @@
 
 namespace AppBundle\Tests\Controller;
 
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Liip\FunctionalTestBundle\Test\WebTestCase;
 
 /**
  * Test cases for the code-related controller
@@ -14,28 +14,24 @@ class CodeControllerTest extends WebTestCase
 {
     public function testIndex404()
     {
-        $client = static::createClient();
+        $client = $this->makeClient();
 
         $client->request('GET', '/codes/999');
-        $statusCode = $client->getResponse()->getStatusCode();
-        $this->assertEquals(404, $statusCode);
+        $this->assertStatusCode(404, $client);
 
         $client->request('GET', '/codes/0');
-        $statusCode = $client->getResponse()->getStatusCode();
-        $this->assertEquals(404, $statusCode);
+        $this->assertStatusCode(404, $client);
 
         $client->request('GET', '/codes/lorem');
-        $statusCode = $client->getResponse()->getStatusCode();
-        $this->assertEquals(404, $statusCode);
+        $this->assertStatusCode(404, $client);
     }
 
     public function testIndex()
     {
-        $client = static::createClient();
+        $client = $this->makeClient();
         $crawler = $client->request('GET', '/codes');
-        $statusCode = $client->getResponse()->getStatusCode();
 
-        $this->assertEquals(200, $statusCode);
+        $this->assertStatusCode(200, $client);
         $this->assertEquals('Wygenerowane kody', $crawler->filter('.container .row h1.col-xs-12')->text());
 
         /*
@@ -69,7 +65,7 @@ class CodeControllerTest extends WebTestCase
 
     public function testIndexPagination()
     {
-        $client = static::createClient();
+        $client = $this->makeClient();
         $tableBodySelector = '.table-responsive .table tbody';
         $pagerSelector = '.pager li';
 
@@ -77,9 +73,8 @@ class CodeControllerTest extends WebTestCase
          * 1st page
          */
         $crawler = $client->request('GET', '/codes/1');
-        $statusCode = $client->getResponse()->getStatusCode();
 
-        $this->assertEquals(200, $statusCode);
+        $this->assertStatusCode(200, $client);
         $this->assertEquals(10, $crawler->filter($tableBodySelector)->children()->count());
 
         $this->assertEquals(1, $crawler->filter($pagerSelector)->count());
@@ -89,9 +84,8 @@ class CodeControllerTest extends WebTestCase
          * 2nd page
          */
         $crawler = $client->request('GET', '/codes/2');
-        $statusCode = $client->getResponse()->getStatusCode();
 
-        $this->assertEquals(200, $statusCode);
+        $this->assertStatusCode(200, $client);
         $this->assertEquals(5, $crawler->filter($tableBodySelector)->children()->count());
 
         $this->assertEquals(1, $crawler->filter($pagerSelector)->count());
@@ -101,13 +95,12 @@ class CodeControllerTest extends WebTestCase
          * 3rd page - 404
          */
         $client->request('GET', '/codes/3');
-        $statusCode = $client->getResponse()->getStatusCode();
-        $this->assertEquals(404, $statusCode);
+        $this->assertStatusCode(404, $client);
     }
 
     public function testIndexPaginationClick()
     {
-        $client = static::createClient();
+        $client = $this->makeClient();
         $tableBodySelector = '.table-responsive .table tbody';
         $pagerSelector = '.pager li';
 
@@ -115,19 +108,17 @@ class CodeControllerTest extends WebTestCase
          * Load 1st page
          */
         $crawler = $client->request('GET', '/codes');
-        $statusCode = $client->getResponse()->getStatusCode();
 
         $this->assertEquals(10, $crawler->filter($tableBodySelector)->children()->count());
-        $this->assertEquals(200, $statusCode);
+        $this->assertStatusCode(200, $client);
 
         /*
          * Click "next" button in pager
          */
         $nextLink = $crawler->filter(sprintf('%s:first-of-type a', $pagerSelector))->link();
         $crawler = $client->click($nextLink);
-        $statusCode = $client->getResponse()->getStatusCode();
 
-        $this->assertEquals(200, $statusCode);
+        $this->assertStatusCode(200, $client);
         $this->assertEquals(5, $crawler->filter($tableBodySelector)->children()->count());
 
         /*
@@ -136,7 +127,6 @@ class CodeControllerTest extends WebTestCase
         $nextLink = $crawler->filter(sprintf('%s:first-of-type a', $pagerSelector))->link();
         $client->click($nextLink);
 
-        $statusCode = $client->getResponse()->getStatusCode();
-        $this->assertEquals(200, $statusCode);
+        $this->assertStatusCode(200, $client);
     }
 }

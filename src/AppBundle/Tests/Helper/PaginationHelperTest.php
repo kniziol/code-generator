@@ -3,10 +3,10 @@
 namespace AppBundle\Tests\Helper;
 
 use AppBundle\Helper\PaginationHelper;
-use Symfony\Bundle\FrameworkBundle\Test\WebTestCase;
+use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;
 use Symfony\Component\DependencyInjection\ContainerInterface;
 
-class PaginationHelperTest extends WebTestCase
+class PaginationHelperTest extends KernelTestCase
 {
     /**
      * The DI container
