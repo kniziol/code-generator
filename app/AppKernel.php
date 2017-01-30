@@ -50,6 +50,7 @@ class AppKernel extends Kernel
              * External bundles
              */
             $bundles[] = new Hautelook\AliceBundle\HautelookAliceBundle();
+            $bundles[] = new Liip\FunctionalTestBundle\LiipFunctionalTestBundle();
         }
 
         return $bundles;
