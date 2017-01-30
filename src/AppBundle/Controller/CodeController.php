@@ -5,6 +5,7 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Code;
 use AppBundle\Repository\CodeRepository;
 use Doctrine\ORM\Query;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
@@ -36,6 +37,8 @@ class CodeController extends BaseController
      *          "page": 1
      *     }
      * )
+     *
+     * @Method("GET")
      * @Template()
      */
     public function indexAction(Request $request, $page = 1)

@@ -41,7 +41,6 @@ class Code
      */
     private $value;
 
-
     /**
      * Get id
      *
@@ -50,6 +49,16 @@ class Code
     public function getId()
     {
         return $this->id;
+    }
+
+    /**
+     * Get createdAt
+     *
+     * @return \DateTime
+     */
+    public function getCreatedAt()
+    {
+        return $this->createdAt;
     }
 
     /**
@@ -66,13 +75,13 @@ class Code
     }
 
     /**
-     * Get createdAt
+     * Get value
      *
-     * @return \DateTime
+     * @return string
      */
-    public function getCreatedAt()
+    public function getValue()
     {
-        return $this->createdAt;
+        return $this->value;
     }
 
     /**
@@ -86,15 +95,5 @@ class Code
         $this->value = $value;
 
         return $this;
-    }
-
-    /**
-     * Get value
-     *
-     * @return string
-     */
-    public function getValue()
-    {
-        return $this->value;
     }
 }

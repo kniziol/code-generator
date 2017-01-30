@@ -2,6 +2,7 @@
 
 namespace AppBundle\Controller;
 
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
 use Symfony\Component\HttpFoundation\Request;
@@ -24,6 +25,8 @@ class MainController extends BaseController
      *     "/",
      *     name="app.homepage"
      * )
+     *
+     * @Method("GET")
      * @Template()
      */
     public function homepageAction(Request $request)
