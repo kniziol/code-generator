@@ -38,4 +38,21 @@ class CodeRepository extends EntityRepository
 
         return $codes;
     }
+
+    /**
+     * Returns codes with given values
+     *
+     * @param array $codesValues Values of codes to return
+     * @return array
+     */
+    public function getCodesByValues(array $codesValues)
+    {
+        $queryBuilder = $this->createQueryBuilder('c');
+        $inExpression = $queryBuilder->expr()->in('c.value', $codesValues);
+
+        return $queryBuilder
+            ->andWhere($inExpression)
+            ->getQuery()
+            ->getResult();
+    }
 }

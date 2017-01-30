@@ -3,6 +3,7 @@
 namespace AppBundle\Controller;
 
 use AppBundle\Entity\Code;
+use AppBundle\Form\Type\CodeDeleteType;
 use AppBundle\Repository\CodeRepository;
 use Doctrine\ORM\Query;
 use Faker\Factory;
@@ -149,6 +150,78 @@ class CodeController extends BaseController
             'allCodesCount'      => $allCodesCount,
             'nextPageNumber'     => $nextPageNumber,
             'previousPageNumber' => $previousPageNumber,
+        ];
+    }
+
+    /**
+     * Deletes codes with given values
+     *
+     * @param Request $request The request
+     * @return RedirectResponse|array
+     *
+     * @Route(
+     *     "/delete",
+     *     name="app.code.delete"
+     * )
+     *
+     * @Method({"GET", "POST"})
+     * @Template()
+     */
+    public function deleteAction(Request $request)
+    {
+        $form = $this->createForm(CodeDeleteType::class);
+        $form->handleRequest($request);
+
+        if ($request->isMethod('post')) {
+            if ($form->isValid()) {
+                /*
+                 * 1st step:
+                 * Grab the data
+                 */
+                $data = $form->getData();
+                $codesString = $data[CodeDeleteType::TEXT_AREA_NAME];
+
+                /*
+                 * 2nd step:
+                 * Remove empty lines
+                 */
+                $codesString = preg_replace('/[\n\r]+/', '|', $codesString);
+
+                /*
+                 * 3rd step:
+                 * Create an array
+                 */
+                $codesValues = explode('|', $codesString);
+
+                /*
+                 * 4th step:
+                 * Fetch and verify codes
+                 */
+                $codes = $this->getCodeRepository()->getCodesByValues($codesValues);
+
+                $translator = $this->getTranslator();
+                $domain = 'AppBundle';
+
+                if (count($codesValues) !== count($codes)) {
+                    $message = $translator->trans('flash.code.delete.nonexisting_codes', [], $domain);
+                    $this->addFlash('danger', $message);
+                } else {
+                    /* @var $code Code */
+                    foreach ($codes as $code) {
+                        $this->getDoctrineManager()->remove($code);
+                    }
+
+                    $this->getDoctrineManager()->flush();
+                    $message = $translator->trans('flash.code.delete.success', [], $domain);
+                    $this->addFlash('success', $message);
+
+                    return $this->redirectToReferer('app.code.index');
+                }
+            }
+        }
+
+        return [
+            'form' => $form->createView(),
         ];
     }
 }

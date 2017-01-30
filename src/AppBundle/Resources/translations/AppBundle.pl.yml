@@ -15,6 +15,7 @@ label:
     code:
         value: Kod
         date: Utworzono
+    delete_codes: Podaj kody do usunięcia
     pagination:
         title: Stronicowanie
         previous: Poprzednie
@@ -33,7 +34,14 @@ menu:
 title:
     codes:
         list: Wygenerowane kody
+        delete_form: Usuwanie kodów
 
 flash:
     code:
         random_codes_added: Dodano losowe kody
+        delete:
+            nonexisting_codes: Conajmniej 1 kod jest niepoprawny. Kody nie zostały usunięte.
+            success: Kody zostały usunięte
+
+action:
+    delete: Usuń

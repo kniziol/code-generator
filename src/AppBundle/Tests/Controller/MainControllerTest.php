@@ -64,8 +64,8 @@ class MainControllerTest extends WebTestCase
         $alertSelector = '.container .row .col-xs-12 .alert.alert-success';
 
         /*
-        * Load homepage
-        */
+         * Load homepage
+         */
         $client = $this->makeClient();
         $client->followRedirects();
         $crawler = $client->request('GET', '/');
@@ -83,5 +83,29 @@ class MainControllerTest extends WebTestCase
         $this->assertEquals(1, $crawler->filter($brandLinkSelector)->count());
         $this->assertEquals(1, $crawler->filter($alertSelector)->count());
         $this->assertEquals('Dodano losowe kody', $crawler->filter($alertSelector)->text());
+    }
+
+    public function testJumbotronDeleteCodesButton()
+    {
+        $buttonSelector = '.jumbotron .container p .btn.btn-danger';
+        $formSelector = '.container form[name="code_delete"]';
+
+        /*
+         * Load homepage
+         */
+        $client = $this->makeClient();
+        $crawler = $client->request('GET', '/');
+
+        $this->assertStatusCode(200, $client);
+
+        /*
+        * Click button in .jumbotron element to delete codes
+        */
+        $button = $crawler->filter($buttonSelector)->link();
+        $crawler = $client->click($button);
+
+        $this->assertStatusCode(200, $client);
+        $this->assertEquals('Usuwanie kodów', $crawler->filter('.container .row h1.col-xs-12')->text());
+        $this->assertEquals(1, $crawler->filter($formSelector)->count());
     }
 }
