@@ -12,4 +12,30 @@ use Doctrine\ORM\EntityRepository;
  */
 class CodeRepository extends EntityRepository
 {
+    /**
+     * Returns values of all codes.
+     * Only the generated, scalar values.
+     *
+     * @return array
+     */
+    public function getCodesValues()
+    {
+        $result = $this
+            ->createQueryBuilder('c')
+            ->select('c.value')
+            ->getQuery()
+            ->getScalarResult();
+
+        if (empty($result)) {
+            return [];
+        }
+
+        $codes = [];
+
+        foreach ($result as $row) {
+            $codes[] = $row['value'];
+        }
+
+        return $codes;
+    }
 }

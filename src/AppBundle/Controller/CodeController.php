@@ -5,9 +5,12 @@ namespace AppBundle\Controller;
 use AppBundle\Entity\Code;
 use AppBundle\Repository\CodeRepository;
 use Doctrine\ORM\Query;
+use Faker\Factory;
+use Faker\Provider\Barcode;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Method;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Route;
 use Sensio\Bundle\FrameworkExtraBundle\Configuration\Template;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -20,6 +23,68 @@ use Symfony\Component\HttpFoundation\Request;
  */
 class CodeController extends BaseController
 {
+    /**
+     * Adds / generates random codes
+     *
+     * @param Request $request The request
+     * @return RedirectResponse
+     *
+     * @Route(
+     *     "/add-random-codes",
+     *     name="app.code.add_random"
+     * )
+     *
+     * @Method("GET")
+     */
+    public function addRandomAction(Request $request)
+    {
+        $maxCodesCount = 10;
+        $now = new \DateTime();
+
+        $generator = new Barcode(Factory::create());
+        $entityManager = $this->getDoctrineManager();
+        $generatedCodes = $this->getCodeRepository()->getCodesValues();
+
+        for ($i = 1; $i <= $maxCodesCount;) {
+            $value = $generator->isbn10();
+
+            /*
+             * The code is not unique (was already generated)?
+             * Let's generate another
+             */
+            if (in_array($value, $generatedCodes)) {
+                continue;
+            }
+
+            $code = new Code();
+            $code->setValue($value);
+            $code->setCreatedAt($now);
+
+            $entityManager->persist($code);
+            $i++;
+        }
+
+        $entityManager->flush();
+
+        $message = $this->getTranslator()->trans('flash.code.random_codes_added', [], 'AppBundle');
+        $this->addFlash('success', $message);
+
+        return $this->redirectToReferer('app.code.index');
+    }
+
+    /**
+     * Returns repository for the Code entity
+     *
+     * @return CodeRepository
+     */
+    private function getCodeRepository()
+    {
+        /* @var $repository CodeRepository */
+        $repository = $this->getRepository(Code::class);
+
+        return $repository;
+    }
+
     /**
      * Displays all codes
      *
@@ -85,18 +150,5 @@ class CodeController extends BaseController
             'nextPageNumber'     => $nextPageNumber,
             'previousPageNumber' => $previousPageNumber,
         ];
-    }
-
-    /**
-     * Returns repository for the Code entity
-     *
-     * @return CodeRepository
-     */
-    private function getCodeRepository()
-    {
-        /* @var $repository CodeRepository */
-        $repository = $this->getRepository(Code::class);
-
-        return $repository;
     }
 }

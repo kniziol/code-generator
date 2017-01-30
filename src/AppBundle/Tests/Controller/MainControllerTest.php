@@ -23,7 +23,7 @@ class MainControllerTest extends WebTestCase
         $this->assertEquals(0, $crawler->filter('.container .row h1.col-xs-12')->count());
     }
 
-    public function testJumbotronButtonClick()
+    public function testJumbotronShowCodesButton()
     {
         $buttonSelector = '.jumbotron .container p .btn.btn-success';
         $brandLinkSelector = '.navbar .container .navbar-header .navbar-brand';
@@ -55,5 +55,33 @@ class MainControllerTest extends WebTestCase
 
         $this->assertStatusCode(200, $client);
         $this->assertEquals(1, $crawler->filter($buttonSelector)->count());
+    }
+
+    public function testJumbotronAddCodesButton()
+    {
+        $buttonSelector = '.jumbotron .container p .btn.btn-warning';
+        $brandLinkSelector = '.navbar .container .navbar-header .navbar-brand';
+        $alertSelector = '.container .row .col-xs-12 .alert.alert-success';
+
+        /*
+        * Load homepage
+        */
+        $client = $this->makeClient();
+        $client->followRedirects();
+        $crawler = $client->request('GET', '/');
+
+        $this->assertStatusCode(200, $client);
+
+        /*
+         * Click button in .jumbotron element to generate new codes
+         */
+        $button = $crawler->filter($buttonSelector)->link();
+        $crawler = $client->click($button);
+
+        $this->assertStatusCode(200, $client);
+        $this->assertEquals(1, $crawler->filter($buttonSelector)->count());
+        $this->assertEquals(1, $crawler->filter($brandLinkSelector)->count());
+        $this->assertEquals(1, $crawler->filter($alertSelector)->count());
+        $this->assertEquals('Dodano losowe kody', $crawler->filter($alertSelector)->text());
     }
 }

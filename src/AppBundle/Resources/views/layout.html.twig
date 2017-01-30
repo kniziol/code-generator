@@ -67,7 +67,7 @@
                     <a href="{{ path('app.code.index') }}">{{ 'menu.codes_all' | trans }}</a>
                 </li>
                 <li>
-                    <a href="">{{ 'menu.codes_add' | trans }}</a>
+                    <a href="{{ path('app.code.add_random') }}">{{ 'menu.codes_add' | trans }}</a>
                 </li>
                 <li>
                     <a href="">{{ 'menu.codes_delete' | trans }}</a>
@@ -76,6 +76,22 @@
         </div><!--/.navbar-collapse -->
     </div>
 </nav>
+
+{% block before_content %}
+    {% if app.session.flashBag.has('success') %}
+        <div class="container">
+            <div class="row">
+                <div class="col-xs-12">
+                    {% for flash_message in app.session.flashBag.get('success') %}
+                        <div class="alert alert-success" role="alert">
+                            {{- flash_message -}}
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+    {% endif %}
+{% endblock %}
 
 {% block title_container %}
     {% if block('title') is defined %}
@@ -89,9 +105,6 @@
             </div>
         {% endif %}
     {% endif %}
-{% endblock %}
-
-{% block before_content %}
 {% endblock %}
 
 <div class="container">

@@ -2,12 +2,15 @@
 {% trans_default_domain 'AppBundle' %}
 
 {% block before_content %}
+    {{ parent() }}
+
     <div class="jumbotron">
         <div class="container">
             <h1>{{ 'homepage.jumbotron.title' | trans }}</h1>
             <p>{{ 'homepage.jumbotron.description' | trans }}</p>
             <p>
                 <a href="{{ path('app.code.index') }}" class="btn btn-success">{{ 'menu.codes_all' | trans }}</a>
+                <a href="{{ path('app.code.add_random') }}" class="btn btn-warning">{{ 'menu.codes_add' | trans }}</a>
             </p>
         </div>
     </div>

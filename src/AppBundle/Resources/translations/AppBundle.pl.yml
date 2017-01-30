@@ -33,3 +33,7 @@ menu:
 title:
     codes:
         list: Wygenerowane kody
+
+flash:
+    code:
+        random_codes_added: Dodano losowe kody

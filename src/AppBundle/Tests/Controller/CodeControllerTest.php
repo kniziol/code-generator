@@ -129,4 +129,15 @@ class CodeControllerTest extends WebTestCase
 
         $this->assertStatusCode(200, $client);
     }
+
+    public function testAddRandom()
+    {
+        $alertSelector = '.container .row .col-xs-12 .alert.alert-success';
+        $client = $this->makeClient();
+        $client->followRedirects();
+        $crawler = $client->request('GET', '/codes/add-random-codes');
+
+        $this->assertStatusCode(200, $client);
+        $this->assertEquals('Dodano losowe kody', $crawler->filter($alertSelector)->text());
+    }
 }
