@@ -140,4 +140,66 @@ class CodeControllerTest extends WebTestCase
         $this->assertStatusCode(200, $client);
         $this->assertEquals('Dodano losowe kody', $crawler->filter($alertSelector)->text());
     }
+
+    public function testDelete()
+    {
+        $formSelector = '.container form[name="code_delete"]';
+
+        /*
+         * Load the "delete codes" form
+         */
+        $client = $this->makeClient();
+        $crawler = $client->request('GET', '/codes/delete');
+
+        $this->assertStatusCode(200, $client);
+        $this->assertEquals(1, $crawler->filter($formSelector)->count());
+    }
+
+    public function testDeleteValidation()
+    {
+        $formGroupSelector = '.container form[name="code_delete"] .form-group.has-error';
+        $validationErrorSelector = sprintf('%s span.help-block li', $formGroupSelector);
+        $alertSelector = '.container .row .col-xs-12 .alert.alert-danger';
+
+        /*
+         * Load the "delete codes" form
+         */
+        $client = $this->makeClient();
+        $crawler = $client->request('GET', '/codes/delete');
+
+        /*
+         * Submit the form without any codes to delete
+         */
+        $form = $crawler->selectButton('Usuń')->form();
+        $crawler = $client->submit($form);
+
+        $this->assertStatusCode(200, $client);
+        $this->assertEquals(1, $crawler->filter($formGroupSelector)->count());
+        $this->assertEquals(0, $crawler->filter($alertSelector)->count());
+        $this->assertContains('Ta wartość nie powinna być pusta.', $crawler->filter($validationErrorSelector)->text());
+
+        /*
+         * Submit the form without too short code
+         */
+        $form = $crawler->selectButton('Usuń')->form();
+        $crawler = $client->submit($form, ['code_delete[codes_values]' => 123]);
+
+        $this->assertStatusCode(200, $client);
+        $this->assertEquals(1, $crawler->filter($formGroupSelector)->count());
+        $this->assertEquals(0, $crawler->filter($alertSelector)->count());
+        $this->assertContains('Ta wartość jest zbyt krótka. Powinna mieć 9 lub więcej znaków.',
+            $crawler->filter($validationErrorSelector)->text());
+
+        /*
+         * Submit the form with non-existing code
+         */
+        $form = $crawler->selectButton('Usuń')->form();
+        $crawler = $client->submit($form, ['code_delete[codes_values]' => 123456789]);
+
+        $this->assertStatusCode(200, $client);
+        $this->assertEquals(0, $crawler->filter($formGroupSelector)->count());
+        $this->assertEquals(0, $crawler->filter($validationErrorSelector)->count());
+        $this->assertEquals('Conajmniej 1 kod jest niepoprawny. Kody nie zostały usunięte.',
+            $crawler->filter($alertSelector)->text());
+    }
 }
