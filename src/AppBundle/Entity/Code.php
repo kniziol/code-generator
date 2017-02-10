@@ -3,6 +3,7 @@
 namespace AppBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Code
@@ -32,12 +33,17 @@ class Code
     /**
      * @var \DateTime
      * @ORM\Column(type="datetime")
+     *
+     * @Assert\DateTime()
      */
     private $createdAt;
 
     /**
      * @var string
      * @ORM\Column(type="string", length=10, unique=true)
+     *
+     * @Assert\NotBlank()
+     * @Assert\Length(max="10")
      */
     private $value;
 
