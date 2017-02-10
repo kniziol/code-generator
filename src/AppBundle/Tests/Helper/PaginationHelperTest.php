@@ -66,7 +66,7 @@ class PaginationHelperTest extends KernelTestCase
          */
         $this->assertEquals(1, self::$paginationHelper->getPagesCount(1));
         $this->assertEquals(1, self::$paginationHelper->getPagesCount(10));
-        $this->assertEquals(2, self::$paginationHelper->getPagesCount(15));
+        $this->assertEquals(2, self::$paginationHelper->getPagesCount(20));
 
         $this->assertEquals(1, self::$paginationHelper->getPagesCount(1, 5));
         $this->assertEquals(2, self::$paginationHelper->getPagesCount(10, 5));
@@ -89,8 +89,8 @@ class PaginationHelperTest extends KernelTestCase
          * Positive cases
          */
         $this->assertEquals(0, self::$paginationHelper->getPaginationOffsetValue(1));
-        $this->assertEquals(40, self::$paginationHelper->getPaginationOffsetValue(5));
-        $this->assertEquals(90, self::$paginationHelper->getPaginationOffsetValue(10));
+        $this->assertEquals(60, self::$paginationHelper->getPaginationOffsetValue(5));
+        $this->assertEquals(135, self::$paginationHelper->getPaginationOffsetValue(10));
     }
 
     public function testGetPaginationPageNumber()

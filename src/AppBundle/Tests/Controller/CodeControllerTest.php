@@ -59,7 +59,7 @@ class CodeControllerTest extends WebTestCase
             /*
              * One / 1st page with codes
              */
-            $this->assertEquals(10, $crawler->filter($tableBodySelector)->children()->count());
+            $this->assertEquals(15, $crawler->filter($tableBodySelector)->children()->count());
         }
     }
 
@@ -75,7 +75,7 @@ class CodeControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/codes/1');
 
         $this->assertStatusCode(200, $client);
-        $this->assertEquals(10, $crawler->filter($tableBodySelector)->children()->count());
+        $this->assertEquals(15, $crawler->filter($tableBodySelector)->children()->count());
 
         $this->assertEquals(1, $crawler->filter($pagerSelector)->count());
         $this->assertContains('Następne', $crawler->filter(sprintf('%s a', $pagerSelector))->text());
@@ -86,7 +86,7 @@ class CodeControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/codes/2');
 
         $this->assertStatusCode(200, $client);
-        $this->assertEquals(5, $crawler->filter($tableBodySelector)->children()->count());
+        $this->assertEquals(10, $crawler->filter($tableBodySelector)->children()->count());
 
         $this->assertEquals(1, $crawler->filter($pagerSelector)->count());
         $this->assertContains('Poprzednie', $crawler->filter(sprintf('%s a', $pagerSelector))->text());
@@ -109,7 +109,7 @@ class CodeControllerTest extends WebTestCase
          */
         $crawler = $client->request('GET', '/codes');
 
-        $this->assertEquals(10, $crawler->filter($tableBodySelector)->children()->count());
+        $this->assertEquals(15, $crawler->filter($tableBodySelector)->children()->count());
         $this->assertStatusCode(200, $client);
 
         /*
@@ -119,7 +119,7 @@ class CodeControllerTest extends WebTestCase
         $crawler = $client->click($nextLink);
 
         $this->assertStatusCode(200, $client);
-        $this->assertEquals(5, $crawler->filter($tableBodySelector)->children()->count());
+        $this->assertEquals(10, $crawler->filter($tableBodySelector)->children()->count());
 
         /*
          * Click "previous" button in pager
