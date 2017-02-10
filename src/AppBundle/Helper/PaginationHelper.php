@@ -38,7 +38,7 @@ class PaginationHelper
      */
     public function getPaginationPerPageValue()
     {
-        return 10;
+        return 15;
     }
 
     /**
