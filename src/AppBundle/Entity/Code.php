@@ -8,9 +8,9 @@ use Doctrine\ORM\Mapping as ORM;
  * Code
  *
  * @ORM\Table(
- *     name="codes_testexercise",
+ *     name="codes",
  *     indexes={
- *          @ORM\Index(name="d_code", columns={"f_code"})
+ *          @ORM\Index(name="code_index", columns={"value"})
  *     }
  * )
  * @ORM\Entity(repositoryClass="AppBundle\Repository\CodeRepository")
@@ -23,7 +23,7 @@ class Code
     /**
      * @var int
      *
-     * @ORM\Column(name="h_id", type="integer")
+     * @ORM\Column(type="integer")
      * @ORM\Id
      * @ORM\GeneratedValue(strategy="AUTO")
      */
@@ -31,13 +31,13 @@ class Code
 
     /**
      * @var \DateTime
-     * @ORM\Column(name="h_datetime", type="datetime")
+     * @ORM\Column(type="datetime")
      */
     private $createdAt;
 
     /**
      * @var string
-     * @ORM\Column(name="f_code", type="string", length=255, unique=true)
+     * @ORM\Column(type="string", length=10, unique=true)
      */
     private $value;
 
