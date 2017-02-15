@@ -1,10 +1,15 @@
 {% trans_default_domain 'error-pages' %}
+{% set error_title = '' %}
+
+{% if block('error_title') is defined %}
+    {% set error_title = block('error_title') %}
+{% endif %}
 
 <!doctype html>
 <html lang="en">
 <head>
     <meta charset="utf-8">
-    <title>{{ 'error_page.404.title' | trans }}</title>
+    <title>{{ error_title }}</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style>
         * {
@@ -63,7 +68,7 @@
     <h1>{{ error_number }}</h1>
 {% endif %}
 
-{% if block('error_title') is defined %}
+{% if error_title is not empty %}
     {% set error_title = block('error_title') %}
     <p>{{ error_title }}</p>
 {% endif %}
