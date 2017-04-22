@@ -51,6 +51,7 @@ class AppKernel extends Kernel
              */
             $bundles[] = new Hautelook\AliceBundle\HautelookAliceBundle();
             $bundles[] = new Liip\FunctionalTestBundle\LiipFunctionalTestBundle();
+            $bundles[] = new Pixers\DoctrineProfilerBundle\PixersDoctrineProfilerBundle();
         }
 
         return $bundles;
