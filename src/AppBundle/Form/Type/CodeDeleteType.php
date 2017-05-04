@@ -26,7 +26,7 @@ class CodeDeleteType extends AbstractType
     const TEXT_AREA_NAME = 'codes_values';
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
@@ -47,7 +47,7 @@ class CodeDeleteType extends AbstractType
     }
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public function configureOptions(OptionsResolver $resolver)
     {

@@ -27,9 +27,10 @@ information:
         count: Ilość kodów
 
 menu:
-    codes_all: Pokaż wszystkie kody
-    codes_add: Dodaj 10 losowych kodów
-    codes_delete: Usuń kody
+    codes:
+        all: Pokaż wszystkie kody
+        add_random: Dodaj 10 losowych kodów
+        delete: Usuń kody
 
 title:
     codes:

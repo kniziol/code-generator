@@ -74,19 +74,6 @@ class CodeController extends BaseController
     }
 
     /**
-     * Returns repository for the Code entity
-     *
-     * @return CodeRepository
-     */
-    private function getCodeRepository()
-    {
-        /* @var $repository CodeRepository */
-        $repository = $this->getRepository(Code::class);
-
-        return $repository;
-    }
-
-    /**
      * Displays all codes
      *
      * @param Request $request The request
@@ -172,56 +159,67 @@ class CodeController extends BaseController
         $form = $this->createForm(CodeDeleteType::class);
         $form->handleRequest($request);
 
-        if ($request->isMethod('post')) {
-            if ($form->isValid()) {
-                /*
-                 * 1st step:
-                 * Grab the data
-                 */
-                $data = $form->getData();
-                $codesString = $data[CodeDeleteType::TEXT_AREA_NAME];
+        if ($form->isSubmitted() && $form->isValid()) {
+            /*
+             * 1st step:
+             * Grab the data
+             */
+            $data = $form->getData();
+            $codesString = $data[CodeDeleteType::TEXT_AREA_NAME];
 
-                /*
-                 * 2nd step:
-                 * Remove empty lines
-                 */
-                $codesString = preg_replace('/[\n\r]+/', '|', $codesString);
+            /*
+             * 2nd step:
+             * Remove empty lines
+             */
+            $codesString = preg_replace('/[\n\r]+/', '|', $codesString);
 
-                /*
-                 * 3rd step:
-                 * Create an array
-                 */
-                $codesValues = explode('|', $codesString);
+            /*
+             * 3rd step:
+             * Create an array
+             */
+            $codesValues = explode('|', $codesString);
 
-                /*
-                 * 4th step:
-                 * Fetch and verify codes
-                 */
-                $codes = $this->getCodeRepository()->getCodesByValues($codesValues);
+            /*
+             * 4th step:
+             * Fetch and verify codes
+             */
+            $codes = $this->getCodeRepository()->getCodesByValues($codesValues);
 
-                $translator = $this->getTranslator();
-                $domain = 'AppBundle';
+            $translator = $this->getTranslator();
+            $domain = 'AppBundle';
 
-                if (count($codesValues) !== count($codes)) {
-                    $message = $translator->trans('flash.code.delete.nonexisting_codes', [], $domain);
-                    $this->addFlash('danger', $message);
-                } else {
-                    /* @var $code Code */
-                    foreach ($codes as $code) {
-                        $this->getDoctrineManager()->remove($code);
-                    }
-
-                    $this->getDoctrineManager()->flush();
-                    $message = $translator->trans('flash.code.delete.success', [], $domain);
-                    $this->addFlash('success', $message);
-
-                    return $this->redirectToReferer('app.code.index');
+            if (count($codesValues) !== count($codes)) {
+                $message = $translator->trans('flash.code.delete.nonexisting_codes', [], $domain);
+                $this->addFlash('danger', $message);
+            } else {
+                /* @var $code Code */
+                foreach ($codes as $code) {
+                    $this->getDoctrineManager()->remove($code);
                 }
+
+                $this->getDoctrineManager()->flush();
+                $message = $translator->trans('flash.code.delete.success', [], $domain);
+                $this->addFlash('success', $message);
+
+                return $this->redirectToReferer('app.code.index');
             }
         }
 
         return [
             'form' => $form->createView(),
         ];
+    }
+
+    /**
+     * Returns repository for the Code entity
+     *
+     * @return CodeRepository
+     */
+    private function getCodeRepository()
+    {
+        /* @var $repository CodeRepository */
+        $repository = $this->getRepository(Code::class);
+
+        return $repository;
     }
 }

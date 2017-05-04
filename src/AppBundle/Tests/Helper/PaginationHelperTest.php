@@ -23,7 +23,7 @@ class PaginationHelperTest extends KernelTestCase
     private static $paginationHelper;
 
     /**
-     * {@inheritDoc}
+     * {@inheritdoc}
      */
     public static function setUpBeforeClass()
     {
