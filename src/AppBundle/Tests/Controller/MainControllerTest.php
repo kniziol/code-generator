@@ -105,7 +105,7 @@ class MainControllerTest extends WebTestCase
         $crawler = $client->click($button);
 
         $this->assertStatusCode(200, $client);
-        $this->assertEquals('Usuwanie kodów', $crawler->filter('.container .row h1.col-xs-12')->text());
+        $this->assertEquals('Usuń kody', $crawler->filter('.container .row h1.col-xs-12')->text());
         $this->assertEquals(1, $crawler->filter($formSelector)->count());
     }
 }

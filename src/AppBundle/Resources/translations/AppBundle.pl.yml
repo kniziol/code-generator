@@ -30,12 +30,16 @@ menu:
     codes:
         all: Pokaż wszystkie kody
         add_random: Dodaj 10 losowych kodów
+        add: Dodaj 1 kod
         delete: Usuń kody
+    simple:
+        add: Dodaj
 
 title:
     codes:
-        list: Wygenerowane kody
-        delete_form: Usuwanie kodów
+        list: Wszystkie kody
+        delete_form: Usuń kody
+        add_form: Dodaj 1 kod
 
 flash:
     code:

@@ -32,7 +32,7 @@ class CodeControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/codes');
 
         $this->assertStatusCode(200, $client);
-        $this->assertEquals('Wygenerowane kody', $crawler->filter('.container .row h1.col-xs-12')->text());
+        $this->assertEquals('Wszystkie kody', $crawler->filter('.container .row h1.col-xs-12')->text());
 
         /*
          * Headers of table / list
