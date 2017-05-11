@@ -15,6 +15,9 @@ label:
     code:
         value: Kod
         date: Utworzono
+        save: Zapisz
+        your_code: Twój kod
+        add: Dodaj
     delete_codes: Podaj kody do usunięcia
     pagination:
         title: Stronicowanie
@@ -44,6 +47,7 @@ title:
 flash:
     code:
         random_codes_added: Dodano losowe kody
+        your_code_added: Twój kod został dodany
         delete:
             nonexisting_codes: Conajmniej 1 kod jest niepoprawny. Kody nie zostały usunięte.
             success: Kody zostały usunięte

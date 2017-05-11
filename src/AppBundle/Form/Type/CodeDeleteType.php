@@ -33,6 +33,9 @@ class CodeDeleteType extends AbstractType
         $builder
             ->add(self::TEXT_AREA_NAME, TextareaType::class, [
                 'label'       => 'label.delete_codes',
+                'attr'        => [
+                    'class' => 'main-field',
+                ],
                 'constraints' => [
                     new NotBlank(),
                     new Length(['min' => 9]),

@@ -4,7 +4,9 @@ namespace AppBundle\Controller;
 
 use AppBundle\Entity\Code;
 use AppBundle\Form\Type\CodeDeleteType;
+use AppBundle\Form\Type\CodeType;
 use AppBundle\Repository\CodeRepository;
+use DateTime;
 use Doctrine\ORM\Query;
 use Faker\Factory;
 use Faker\Provider\Barcode;
@@ -71,6 +73,49 @@ class CodeController extends BaseController
         $this->addFlash('success', $message);
 
         return $this->redirectToReferer('app.code.index');
+    }
+
+    /**
+     * Adds 1 code provided by user
+     *
+     * @param Request $request The request
+     * @return array|RedirectResponse
+     *
+     * @Route(
+     *     "/add-code",
+     *     name="app.code.add"
+     * )
+     *
+     * @Method({
+     *     "GET",
+     *     "POST"
+     * })
+     *
+     * @Template()
+     */
+    public function addAction(Request $request)
+    {
+        $now = new DateTime();
+        $code = (new Code())->setCreatedAt($now);
+
+        $form = $this->createForm(CodeType::class, $code);
+        $form->handleRequest($request);
+
+        if ($form->isSubmitted() && $form->isValid()) {
+            $entityManager = $this->getDoctrineManager();
+
+            $entityManager->persist($code);
+            $entityManager->flush($code);
+
+            $message = $this->getTranslator()->trans('flash.code.your_code_added', [], 'AppBundle');
+            $this->addFlash('success', $message);
+
+            return $this->redirectToReferer('app.code.add');
+        }
+
+        return [
+            'form' => $form->createView(),
+        ];
     }
 
     /**

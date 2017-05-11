@@ -1,30 +1,15 @@
-{% extends '@App/layout.html.twig' %}
+{% extends '@App/Code/Common/form.html.twig' %}
 {% trans_default_domain 'AppBundle' %}
 
 {% block title %}{{ 'title.codes.delete_form' | trans }}{% endblock %}
-
-{% block content %}
-    {{ form(form) }}
-{% endblock %}
 
 {% block stylesheets %}
     {{ parent() }}
 
     <style type="text/css">
-        form #code_delete #code_delete_codes_values {
+        form .main-field {
             resize: vertical;
             min-height: 100px;
-            width: 40%;
         }
     </style>
-{% endblock %}
-
-{% block javascripts_body %}
-    {{ parent() }}
-
-    <script type="text/javascript">
-        $(function() {
-            $('#code_delete_codes_values').focus();
-        })
-    </script>
 {% endblock %}

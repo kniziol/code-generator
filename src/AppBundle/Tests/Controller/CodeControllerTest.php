@@ -141,6 +141,49 @@ class CodeControllerTest extends WebTestCase
         $this->assertEquals('Dodano losowe kody', $crawler->filter($alertSelector)->text());
     }
 
+    /**
+     * @param string $code            The code to add
+     * @param string $validationError Validation error text
+     *
+     * @dataProvider getCodes
+     */
+    public function testAddCode($code, $validationError)
+    {
+        $formGroupSelector = '.container form[name="code"] .form-group.has-error';
+        $validationErrorSelector = sprintf('%s span.help-block li', $formGroupSelector);
+        $alertSelector = '.container .row .col-xs-12 .alert.alert-success';
+
+        $client = $this->makeClient();
+        $client->followRedirects();
+        $crawler = $client->request('GET', '/codes/add-code');
+
+        $this->assertStatusCode(200, $client);
+
+        $submitButton = $crawler->selectButton('Dodaj');
+        $form = $submitButton->form();
+
+        $crawler = $client->submit($form, [
+            'code[value]' => $code,
+        ]);
+
+        $codeIsValid = empty($validationError);
+        $formGroupCount = 1;
+        $alertCount = 0;
+
+        if ($codeIsValid) {
+            $formGroupCount = 0;
+            $alertCount = 1;
+        }
+
+        $this->assertStatusCode(200, $client);
+        $this->assertEquals($formGroupCount, $crawler->filter($formGroupSelector)->count());
+        $this->assertEquals($alertCount, $crawler->filter($alertSelector)->count());
+
+        if (!$codeIsValid) {
+            $this->assertContains($validationError, $crawler->filter($validationErrorSelector)->text());
+        }
+    }
+
     public function testDelete()
     {
         $formSelector = '.container form[name="code_delete"]';
@@ -201,5 +244,33 @@ class CodeControllerTest extends WebTestCase
         $this->assertEquals(0, $crawler->filter($validationErrorSelector)->count());
         $this->assertEquals('Conajmniej 1 kod jest niepoprawny. Kody nie zostały usunięte.',
             $crawler->filter($alertSelector)->text());
+    }
+
+    /**
+     * Provides invalid codes with validation errors
+     *
+     * @return array
+     */
+    public function getCodes()
+    {
+        yield[
+            'code'             => '',
+            'validation_error' => 'Ta wartość nie powinna być pusta.',
+        ];
+
+        yield[
+            'code'             => 'ab',
+            'validation_error' => 'Ta wartość jest zbyt krótka. Powinna mieć 3 lub więcej znaków.',
+        ];
+
+        yield[
+            'code'             => 'testing something',
+            'validation_error' => 'Ta wartość jest zbyt długa. Powinna mieć 10 lub mniej znaków.',
+        ];
+
+        yield[
+            'code'             => '1234567890',
+            'validation_error' => '',
+        ];
     }
 }

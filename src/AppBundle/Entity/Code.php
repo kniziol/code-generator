@@ -2,6 +2,7 @@
 
 namespace AppBundle\Entity;
 
+use AppBundle\Validator\Constraints\UniqueCodeValue;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 
@@ -43,7 +44,8 @@ class Code
      * @ORM\Column(type="string", length=10, unique=true)
      *
      * @Assert\NotBlank()
-     * @Assert\Length(max="10")
+     * @Assert\Length(min="3", max="10")
+     * @UniqueCodeValue()
      */
     private $value;
 

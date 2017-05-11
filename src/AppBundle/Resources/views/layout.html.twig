@@ -66,8 +66,18 @@
                 <li>
                     <a href="{{ path('app.code.index') }}">{{ 'menu.codes.all' | trans }}</a>
                 </li>
-                <li>
-                    <a href="{{ path('app.code.add_random') }}">{{ 'menu.codes.add_random' | trans }}</a>
+                <li class="dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true"
+                       aria-expanded="false">{{ 'menu.simple.add' | trans }} <span class="caret"></span>
+                    </a>
+                    <ul class="dropdown-menu">
+                        <li>
+                            <a href="{{ path('app.code.add_random') }}">{{ 'menu.codes.add_random' | trans }}</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('app.code.add') }}">{{ 'menu.codes.add' | trans }}</a>
+                        </li>
+                    </ul>
                 </li>
                 <li>
                     <a href="{{ path('app.code.delete') }}">{{ 'menu.codes.delete' | trans }}</a>
