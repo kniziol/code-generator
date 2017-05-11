@@ -1,7 +1,8 @@
 Code Generator
 ==============
 
-Symfony-based application that manages random codes. Allows to display, delete and generate them.
+Symfony-based application that manages codes - generated random and user-provided. Allows to display, generate, add 
+and delete them.
 
 > All commands in terminal should be called from main directory of project.
 
