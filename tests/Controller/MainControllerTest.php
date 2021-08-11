@@ -115,7 +115,7 @@ class MainControllerTest extends WebTestCase
         $this->assertNotEmpty($submitButton);
         $this->assertNotEmpty($form);
         $this->assertEquals('POST', $form->getMethod());
-        $this->assertRegExp('#^http://[\w-.]+/codes/add-code$#', $form->getUri());
+        $this->assertMatchesRegularExpression('#^http://[\w\-.]+/codes/add-code$#', $form->getUri());
     }
 
     public function testJumbotronDeleteCodesButton()

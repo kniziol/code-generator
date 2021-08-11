@@ -80,7 +80,7 @@ class CodeControllerTest extends WebTestCase
         $this->assertEquals(15, $crawler->filter($tableBodySelector)->children()->count());
 
         $this->assertEquals(1, $crawler->filter($pagerSelector)->count());
-        $this->assertContains('Następne', $crawler->filter(sprintf('%s a', $pagerSelector))->text());
+        $this->assertStringContainsString('Następne', $crawler->filter(sprintf('%s a', $pagerSelector))->text());
 
         /*
          * 2nd page
@@ -91,7 +91,7 @@ class CodeControllerTest extends WebTestCase
         $this->assertEquals(10, $crawler->filter($tableBodySelector)->children()->count());
 
         $this->assertEquals(1, $crawler->filter($pagerSelector)->count());
-        $this->assertContains('Poprzednie', $crawler->filter(sprintf('%s a', $pagerSelector))->text());
+        $this->assertStringContainsString('Poprzednie', $crawler->filter(sprintf('%s a', $pagerSelector))->text());
 
         /*
          * 3rd page - 404
@@ -182,7 +182,7 @@ class CodeControllerTest extends WebTestCase
         $this->assertEquals($alertCount, $crawler->filter($alertSelector)->count());
 
         if (!$codeIsValid) {
-            $this->assertContains($validationError, $crawler->filter($validationErrorSelector)->text());
+            $this->assertStringContainsString($validationError, $crawler->filter($validationErrorSelector)->text());
         }
     }
 
@@ -221,7 +221,7 @@ class CodeControllerTest extends WebTestCase
         $this->assertStatusCode(200, $client);
         $this->assertEquals(1, $crawler->filter($formGroupSelector)->count());
         $this->assertEquals(0, $crawler->filter($alertSelector)->count());
-        $this->assertContains('Ta wartość nie powinna być pusta.', $crawler->filter($validationErrorSelector)->text());
+        $this->assertStringContainsString('Ta wartość nie powinna być pusta.', $crawler->filter($validationErrorSelector)->text());
 
         /*
          * Submit the form without too short code
@@ -232,7 +232,7 @@ class CodeControllerTest extends WebTestCase
         $this->assertStatusCode(200, $client);
         $this->assertEquals(1, $crawler->filter($formGroupSelector)->count());
         $this->assertEquals(0, $crawler->filter($alertSelector)->count());
-        $this->assertContains('Ta wartość jest zbyt krótka. Powinna mieć 9 lub więcej znaków.',
+        $this->assertStringContainsString('Ta wartość jest zbyt krótka. Powinna mieć 9 lub więcej znaków.',
             $crawler->filter($validationErrorSelector)->text());
 
         /*

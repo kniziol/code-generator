@@ -21,21 +21,9 @@ class PaginationHelperTest extends KernelTestCase
      */
     public static function setUpBeforeClass(): void
     {
-        /*
-         * Start the Symfony kernel
-         */
-        $kernel = static::createKernel();
-        $kernel->boot();
-
-        /*
-         * Get the DI container
-         */
-        self::$container = $kernel->getContainer();
-
-        /*
-         * Instantiate the pagination helper
-         */
-        self::$paginationHelper = self::$container->get('app.helper.pagination');
+        self::bootKernel();
+        $container = static::getContainer();
+        self::$paginationHelper = $container->get(PaginationHelper::class);
     }
 
     public function testGetPaginationPerPageValue()
@@ -48,12 +36,8 @@ class PaginationHelperTest extends KernelTestCase
         /*
          * Negative cases
          */
-        $this->assertEquals(0, self::$paginationHelper->getPagesCount(null));
         $this->assertEquals(0, self::$paginationHelper->getPagesCount(0));
         $this->assertEquals(0, self::$paginationHelper->getPagesCount(-1));
-        $this->assertEquals(0, self::$paginationHelper->getPagesCount('abc'));
-        $this->assertEquals(0, self::$paginationHelper->getPagesCount(''));
-        $this->assertEquals(0, self::$paginationHelper->getPagesCount(' '));
 
         /*
          * Positive cases
@@ -72,12 +56,8 @@ class PaginationHelperTest extends KernelTestCase
         /*
          * Negative cases
          */
-        $this->assertEquals(0, self::$paginationHelper->getPaginationOffsetValue(null));
         $this->assertEquals(0, self::$paginationHelper->getPaginationOffsetValue(0));
         $this->assertEquals(0, self::$paginationHelper->getPaginationOffsetValue(-1));
-        $this->assertEquals(0, self::$paginationHelper->getPaginationOffsetValue('abc'));
-        $this->assertEquals(0, self::$paginationHelper->getPaginationOffsetValue(''));
-        $this->assertEquals(0, self::$paginationHelper->getPaginationOffsetValue(' '));
 
         /*
          * Positive cases
@@ -92,12 +72,8 @@ class PaginationHelperTest extends KernelTestCase
         /*
          * Negative cases
          */
-        $this->assertNull(self::$paginationHelper->getPaginationPageNumber(null));
         $this->assertNull(self::$paginationHelper->getPaginationPageNumber(0));
         $this->assertNull(self::$paginationHelper->getPaginationPageNumber(-1));
-        $this->assertNull(self::$paginationHelper->getPaginationPageNumber('abc'));
-        $this->assertNull(self::$paginationHelper->getPaginationPageNumber(''));
-        $this->assertNull(self::$paginationHelper->getPaginationPageNumber(' '));
         $this->assertNull(self::$paginationHelper->getPaginationPageNumber(1, 0));
         $this->assertNull(self::$paginationHelper->getPaginationPageNumber(1, 1));
         $this->assertNull(self::$paginationHelper->getPaginationPageNumber(5, 4));
