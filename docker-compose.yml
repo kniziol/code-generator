@@ -1,0 +1,63 @@
+version: '2'
+
+services:
+    #
+    # Required to run project
+    #
+    db:
+        image: mariadb
+        container_name: ${DOCKER_CONTAINER_PREFIX}-db
+        volumes:
+            - ./docker/data/db:/var/lib/mysql:cached
+        environment:
+            MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
+            MYSQL_DATABASE: ${MYSQL_DATABASE}
+            MYSQL_USER: ${MYSQL_USER}
+            MYSQL_PASSWORD: ${MYSQL_PASSWORD}
+        ports:
+            - ${MYSQL_PORT_EXTERNAL}:${MYSQL_PORT}
+    php:
+        image: meritoo/php
+        container_name: ${DOCKER_CONTAINER_PREFIX}-php
+        environment:
+            PHP_DATE_TIMEZONE: ${PHP_DATE_TIMEZONE}
+            PHP_MEMORY_LIMIT: ${PHP_MEMORY_LIMIT}
+        volumes:
+            - ${SYMFONY_APP_PATH}:/var/www/application:cached
+            - ~/.ssh:/root/.ssh:cached
+    nginx:
+        image: meritoo/nginx
+        container_name: ${DOCKER_CONTAINER_PREFIX}-nginx
+        environment:
+            NGINX_PORT: ${NGINX_PORT}
+        ports:
+            - ${NGINX_PORT_EXTERNAL}:${NGINX_PORT}
+        volumes_from:
+            - php
+        volumes:
+            - ./docker/logs/nginx/:/var/log/nginx:cached
+            - ${NGINX_CERTIFICATE_DIRECTORY}:/etc/nginx/certificate:cached
+    composer:
+        image: meritoo/php
+        container_name: ${DOCKER_CONTAINER_PREFIX}-composer
+        entrypoint: php -d memory_limit=-1 /usr/local/bin/composer
+        volumes:
+            - ${SYMFONY_APP_PATH}:/var/www/application:cached
+    console:
+        image: meritoo/php
+        container_name: ${DOCKER_CONTAINER_PREFIX}-console
+        entrypoint: php -d memory_limit=-1 ./bin/console
+        volumes:
+            - ${SYMFONY_APP_PATH}:/var/www/application:cached
+    #
+    # Required to run PHPUnit's tests
+    #
+    phpunit:
+        image: meritoo/php
+        container_name: ${DOCKER_CONTAINER_PREFIX}-phpunit
+        entrypoint: ./bin/phpunit
+        command: --version
+        volumes:
+            - ${SYMFONY_APP_PATH}:/var/www/application:cached
+        environment:
+            XDEBUG_MODE: coverage
