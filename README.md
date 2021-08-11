@@ -98,3 +98,13 @@ Replace `your.local.domain` with the domain that you will be running application
     APP_DEFAULT_LOCALE=en
     APP_AVAILABLE_LOCALES=en|pl
     ```
+
+## Tests
+
+PHPUnit tests you can run using one of the following commands:
+
+   ```bash
+   $ docker compose run phpunit -v
+   // OR
+   $ docker compose exec php bin/phpunit
+   ```
