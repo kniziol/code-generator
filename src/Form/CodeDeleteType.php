@@ -11,19 +11,8 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\Validator\Constraints\Length;
 use Symfony\Component\Validator\Constraints\NotBlank;
 
-/**
- * Form's type used to build form for codes' deletion
- *
- * @author    Krzysztof Niziol <krzysztof.niziol@meritoo.pl>
- * @copyright Meritoo.pl
- */
 class CodeDeleteType extends AbstractType
 {
-    /**
-     * Name of the textarea field used to enter values of codes
-     *
-     * @var string
-     */
     public const TEXT_AREA_NAME = 'codes_values';
 
     public function buildForm(FormBuilderInterface $builder, array $options): void

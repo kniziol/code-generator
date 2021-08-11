@@ -8,12 +8,6 @@ use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\FormBuilderInterface;
 
-/**
- * Form's type used to build the "create / update code" form
- *
- * @author    Krzysztof Niziol <krzysztof.niziol@meritoo.pl>
- * @copyright Meritoo.pl
- */
 class CodeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options): void

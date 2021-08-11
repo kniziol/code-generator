@@ -21,12 +21,6 @@ class CodeRepository extends ServiceEntityRepository
         parent::__construct($registry, Code::class);
     }
 
-    /**
-     * Returns values of all codes.
-     * Only the generated, scalar values.
-     *
-     * @return array
-     */
     public function getCodesValues(): array
     {
         $result = $this
@@ -48,12 +42,6 @@ class CodeRepository extends ServiceEntityRepository
         return $codes;
     }
 
-    /**
-     * Returns codes with given values
-     *
-     * @param array $codesValues Values of codes to return
-     * @return array
-     */
     public function getCodesByValues(array $codesValues): array
     {
         $queryBuilder = $this->createQueryBuilder('c');

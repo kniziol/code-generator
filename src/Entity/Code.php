@@ -15,9 +15,6 @@ use Symfony\Component\Validator\Constraints as Assert;
  * @ORM\Table(indexes={
  *     @ORM\Index(name="code_index", columns={"value"})
  * })
- *
- * @author    Krzysztof Niziol <krzysztof.niziol@meritoo.pl>
- * @copyright Meritoo.pl
  */
 class Code
 {

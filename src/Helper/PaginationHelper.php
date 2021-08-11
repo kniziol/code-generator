@@ -4,21 +4,8 @@ declare(strict_types=1);
 
 namespace App\Helper;
 
-/**
- * Helper for functionality related to pagination
- *
- * @author    Krzysztof Niziol <krzysztof.niziol@meritoo.pl>
- * @copyright Meritoo.pl
- */
 class PaginationHelper
 {
-    /**
-     * Returns offset used for pagination.
-     * It's value calculated using current page number and the "per page" amount.
-     *
-     * @param int $page Number of page
-     * @return int
-     */
     public function getPaginationOffsetValue(int $page)
     {
         if ($page <= 0) {
@@ -30,24 +17,12 @@ class PaginationHelper
         return ($page - 1) * $limit;
     }
 
-    /**
-     * Returns amount of elements displayed on one page while using pagination
-     * todo: Grab this value from application's configuration. Make it more flexible.
-     *
-     * @return int
-     */
     public function getPaginationPerPageValue(): int
     {
+        // todo: Grab this value from application's configuration. Make it more flexible.
         return 15;
     }
 
-    /**
-     * Returns count / amount of all pages
-     *
-     * @param int      $allItemsCount
-     * @param int|null $perPage (optional)
-     * @return int
-     */
     public function getPagesCount(int $allItemsCount, int $perPage = null): int
     {
         if ($perPage === null) {
@@ -57,16 +32,6 @@ class PaginationHelper
         return (int)ceil($allItemsCount / $perPage);
     }
 
-    /**
-     * Returns next or previous number of page used for pagination.
-     * If there is no next or previous page, returns null (example: for 1st page there is no previous).
-     *
-     * @param int      $current    Current number of page
-     * @param int|null $pagesCount (optional) Count / amount of all pages
-     * @param bool     $next       (optional) If is set to true, returns number of next page (default behaviour).
-     *                             Otherwise - previous.
-     * @return int|null
-     */
     public function getPaginationPageNumber(int $current, int $pagesCount = null, bool $next = true): ?int
     {
         /*

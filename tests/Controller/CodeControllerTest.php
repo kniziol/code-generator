@@ -6,12 +6,6 @@ namespace App\Tests\Controller;
 
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 
-/**
- * Test cases for the code-related controller
- *
- * @author    Krzysztof Niziol <krzysztof.niziol@meritoo.pl>
- * @copyright Meritoo.pl
- */
 class CodeControllerTest extends WebTestCase
 {
     public function testIndex404()
@@ -221,7 +215,8 @@ class CodeControllerTest extends WebTestCase
         $this->assertStatusCode(200, $client);
         $this->assertEquals(1, $crawler->filter($formGroupSelector)->count());
         $this->assertEquals(0, $crawler->filter($alertSelector)->count());
-        $this->assertStringContainsString('Ta wartość nie powinna być pusta.', $crawler->filter($validationErrorSelector)->text());
+        $this->assertStringContainsString('Ta wartość nie powinna być pusta.', $crawler->filter($validationErrorSelector)
+            ->text());
 
         /*
          * Submit the form without too short code

@@ -23,23 +23,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * Provides code-related functionality
- *
- * @author    Krzysztof Niziol <krzysztof.niziol@meritoo.pl>
- * @copyright Meritoo.pl
- *
  * @Route("/codes")
  */
 class CodeController extends BaseController
 {
     /**
-     * Adds / generates random codes
-     *
-     * @param EntityManagerInterface $entityManager
-     * @param TranslatorInterface    $translator
-     * @param CodeRepository         $codeRepository
-     * @return RedirectResponse
-     *
      * @Route(
      *     "/add-random-codes",
      *     name="app.code.add_random",
@@ -94,13 +82,6 @@ class CodeController extends BaseController
     }
 
     /**
-     * Adds 1 code provided by user
-     *
-     * @param Request                $request The request
-     * @param EntityManagerInterface $entityManager
-     * @param TranslatorInterface    $translator
-     * @return array|RedirectResponse
-     *
      * @Route(
      *     "/add-code",
      *     name="app.code.add",
@@ -136,13 +117,6 @@ class CodeController extends BaseController
     }
 
     /**
-     * Displays all codes
-     *
-     * @param PaginationHelper $paginationHelper
-     * @param CodeRepository   $codeRepository
-     * @param int              $page (optional) Number of page. Used for pagination.
-     * @return array
-     *
      * @Route(
      *     "/{page}",
      *     name="app.code.index",
@@ -200,14 +174,6 @@ class CodeController extends BaseController
     }
 
     /**
-     * Deletes codes with given values
-     *
-     * @param Request                $request The request
-     * @param EntityManagerInterface $entityManager
-     * @param TranslatorInterface    $translator
-     * @param CodeRepository         $codeRepository
-     * @return RedirectResponse|array
-     *
      * @Route(
      *     "/delete",
      *     name="app.code.delete",

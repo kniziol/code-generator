@@ -7,12 +7,6 @@ namespace App\Tests\Controller;
 use Liip\FunctionalTestBundle\Test\WebTestCase;
 use Symfony\Component\DomCrawler\Crawler;
 
-/**
- * Test cases for the main controller
- *
- * @author    Krzysztof Niziol <krzysztof.niziol@meritoo.pl>
- * @copyright Meritoo.pl
- */
 class MainControllerTest extends WebTestCase
 {
     public function testHomepage()
