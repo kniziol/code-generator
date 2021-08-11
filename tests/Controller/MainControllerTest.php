@@ -15,7 +15,7 @@ class MainControllerTest extends WebTestCase
         $crawler = $client->request('GET', '/');
 
         $this->assertStatusCode(200, $client);
-        $this->assertEquals('Cześć :)', $crawler->filter('.jumbotron .container h1')->text());
+        $this->assertEquals('Hi :)', $crawler->filter('.jumbotron .container h1')->text());
         $this->assertEquals(0, $crawler->filter('.container .row h1.col-xs-12')->count());
     }
 
@@ -78,7 +78,7 @@ class MainControllerTest extends WebTestCase
         $this->assertEquals(1, $crawler->filter($buttonSelector)->count());
         $this->assertEquals(1, $crawler->filter($brandLinkSelector)->count());
         $this->assertEquals(1, $crawler->filter($alertSelector)->count());
-        $this->assertEquals('Dodano losowe kody', $crawler->filter($alertSelector)->text());
+        $this->assertEquals('Random codes have been added', $crawler->filter($alertSelector)->text());
     }
 
     public function testJumbotronAddCodesButton()
@@ -102,7 +102,7 @@ class MainControllerTest extends WebTestCase
         $button = $crawler->filter($buttonSelector)->link();
         $crawler = $client->click($button);
 
-        $submitButton = $crawler->selectButton('Dodaj');
+        $submitButton = $crawler->selectButton('Add');
         $form = $submitButton->form();
 
         $this->assertStatusCode(200, $client);
@@ -132,7 +132,7 @@ class MainControllerTest extends WebTestCase
         $crawler = $client->click($button);
 
         $this->assertStatusCode(200, $client);
-        $this->assertEquals('Usuń kody', $crawler->filter('.container .row h1.col-xs-12')->text());
+        $this->assertEquals('Remove codes', $crawler->filter('.container .row h1.col-xs-12')->text());
         $this->assertEquals(1, $crawler->filter($formSelector)->count());
     }
 

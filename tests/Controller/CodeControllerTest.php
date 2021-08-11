@@ -209,7 +209,7 @@ class CodeControllerTest extends WebTestCase
         /*
          * Submit the form without any codes to delete
          */
-        $form = $crawler->selectButton('Usuń')->form();
+        $form = $crawler->selectButton('Remove')->form();
         $crawler = $client->submit($form);
 
         $this->assertStatusCode(200, $client);
