@@ -1,81 +1,100 @@
 Code Generator
 ==============
 
-Symfony-based application that manages codes - generated random and user-provided. Allows to display, generate, add 
-and delete them.
-
-> All commands in terminal should be called from main directory of project.
+Symfony-based application that manages codes - generated random and user-provided. Allows displaying, generating, adding
+and removing them.
 
 # Installation
 
 1. Clone the project
 
     ```bash
-    $ git clone https://github.com/kniziol/code-generator.git .
+    $ git clone git@github.com:kniziol/code-generator.git .
     ```
 
-2. Install packages using [Composer](https://getcomposer.org)
+2. Generate self-signed SSL certificate
 
     ```bash
-    $ composer install
+    $ cd docker/config/nginx/certificate
+	$ ./generate-certificate.sh your.local.domain
     ```
 
-> How to install Composer: https://getcomposer.org/download
+Replace `your.local.domain` with the domain that you will be running application.
 
-3. (optional) Install assets (stylesheets, javascripts, images and other stuff)
+3. Run Docker Compose to start the project
 
     ```bash
-    $ php bin/console assets:install --symlink
+    $ docker compose up -d
     ```
-> This step is optional, because all assets will be installed automatically after installing packages by Composer (step 2)
 
-# Configuration
+    If you would like to tweak ports, create `.env.local` file and enter in it some of required environment variables taht you would like to change, e.g.:
+
+    ```
+    #
+    # MySQL
+    #
+    MYSQL_ROOT_PASSWORD=root
+    MYSQL_DATABASE=application
+    MYSQL_USER=user
+    MYSQL_PASSWORD=user
+    MYSQL_PORT=3306
+    MYSQL_PORT_EXTERNAL=3306
+
+    #
+    # Nginx
+    #
+    NGINX_PORT=443
+    NGINX_PORT_EXTERNAL=80
+    ```
+
+4. Install UI-related packages
+
+    ```bash
+    $ docker compose exec php yarn
+    ```
+
+5. Build UI-related assets
+
+    ```bash
+    $ docker compose exec php yarn dev
+    ```
+
+6. Create database
+
+    ```bash
+    $ docker compose run console doctrine:database:create
+    ```
+
+7. Create database structure
+
+    ```bash
+    $ docker compose run console doctrine:schema:create
+    ```
+
+8. (optional) Load data into database (using DataFixtures)
+
+     ```bash
+    $ docker compose run console hautelook:fixtures:load --no-interaction --purge-with-truncate
+    ```
+
+# Configuration (in the `.env` file)
 
 1. Database connection
 
-    After running command ```composer install``` all parameters are defined and stored in ```app/config/parameters.yml``` file. You may change those parameters.
-
-    Example of configuration:
-
-    ```yml
-    database_host: 127.0.0.1
-    database_port: null
-    database_name: my_database
-    database_user: my_user
-    database_password: my_password
-    mailer_transport: smtp
-    mailer_host: 127.0.0.1
-    mailer_user: null
-    mailer_password: null
-    secret: 234ad278eqtyevg
+    ```
+    DATABASE_URL=mysql://user:user@db:3306/application?serverVersion=mariadb-10.5.10
     ```
 
-# Database
+2. PHP parameters
 
-1. Create database defined in ```app/config/parameters.yml``` configuration file
-
-    ```bash
-    $ php bin/console doctrine:database:create
+    ```
+    PHP_DATE_TIMEZONE=Europe/Warsaw
+    PHP_MEMORY_LIMIT=256M
     ```
 
-2. Create tables
+3. Default and available languages (of the UI):
 
-    ```bash
-    $ php bin/console doctrine:schema:create
     ```
-
-3. Populate tables (using DataFixtures)
-
-     ```bash
-    $ php bin/console hautelook_alice:fixtures:load --no-interaction --purge-with-truncate
+    APP_DEFAULT_LOCALE=en
+    APP_AVAILABLE_LOCALES=en|pl
     ```
-
-# Running
-
-Run command:
-
-```bash
-$ php bin/console server:start
-```
-
-to run built-in server or configure and run your own server (Apache, nginx or whatever serves PHP).
