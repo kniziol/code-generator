@@ -4,7 +4,7 @@ Code Generator
 Symfony-based application that manages codes - generated random and user-provided. Allows displaying, generating, adding
 and removing them.
 
-# Installation
+## Installation
 
 1. Clone the project
 
@@ -77,7 +77,7 @@ Replace `your.local.domain` with the domain that you will be running application
     $ docker compose run console hautelook:fixtures:load --no-interaction --purge-with-truncate
     ```
 
-# Configuration (in the `.env` file)
+## Configuration (in the `.env` file)
 
 1. Database connection
 
