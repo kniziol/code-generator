@@ -1,0 +1,25 @@
+{% extends 'layout.html.twig' %}
+
+{% block content %}
+    {{ form(form) }}
+{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        form .main-field {
+            width: 40%;
+        }
+    </style>
+{% endblock %}
+
+{% block javascripts_body %}
+    {{ parent() }}
+
+    <script type="text/javascript">
+        $(function() {
+            $('form .main-field').focus();
+        })
+    </script>
+{% endblock %}

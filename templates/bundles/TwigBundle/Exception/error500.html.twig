@@ -1,0 +1,5 @@
+{% extends 'bundles/TwigBundle/Exception/base.html.twig' %}
+{% trans_default_domain 'error_page' %}
+
+{% block error_number %}500{% endblock %}
+{% block error_title %}{{ 'error_page.title.500' | trans }}{% endblock %}

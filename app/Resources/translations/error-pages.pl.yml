@@ -1,7 +1,0 @@
-error_page:
-    common:
-        homepage: Strona główna
-    title:
-        403: Nie posiadasz praw dostępu do tej strony
-        404: Strona nie istnieje
-        500: Uups, wystąpił błąd w aplikacji...

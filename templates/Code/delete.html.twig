@@ -1,0 +1,14 @@
+{% extends 'Code/Common/form.html.twig' %}
+
+{% block title %}{{ 'title.codes.delete_form' | trans }}{% endblock %}
+
+{% block stylesheets %}
+    {{ parent() }}
+
+    <style>
+        form .main-field {
+            resize: vertical;
+            min-height: 100px;
+        }
+    </style>
+{% endblock %}
