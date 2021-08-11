@@ -5,6 +5,7 @@
 # https://symfony.com/doc/current/best_practices.html#use-parameters-for-application-configuration
 parameters:
     locale: '%env(APP_DEFAULT_LOCALE)%'
+    available_locales: '%env(APP_AVAILABLE_LOCALES)%'
 
 services:
     # default configuration for services in *this* file

@@ -11,9 +11,11 @@ class MainController extends BaseController
 {
     /**
      * @Route(
-     *     "/",
+     *     "/{_locale}",
      *     name="app.homepage",
-     *     methods={"GET"}
+     *     methods={"GET"},
+     *     requirements={"_locale": "%available_locales%"},
+     *     defaults={"_locale": "%locale%"}
      * )
      *
      * @Template()

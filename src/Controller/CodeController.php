@@ -23,7 +23,11 @@ use Symfony\Component\Routing\Annotation\Route;
 use Symfony\Contracts\Translation\TranslatorInterface;
 
 /**
- * @Route("/codes")
+ * @Route(
+ *     "/{_locale}/codes",
+ *     requirements={"_locale": "%available_locales%"},
+ *     defaults={"_locale": "%locale%"}
+ * )
  */
 class CodeController extends BaseController
 {

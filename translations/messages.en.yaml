@@ -1,0 +1,56 @@
+app:
+    title: Promo Codes Manager
+    company:
+        name: Meritoo
+        www: http://www.meritoo.pl
+    action:
+        toggle_navigation: Toggle menu
+
+homepage:
+    jumbotron:
+        title: Hi :)
+        description: You can review, remove and generate new Promo Codes in this app. Enjoy.
+
+label:
+    code:
+        value: Code
+        date: Created
+        save: Save
+        your_code: Your code
+        add: Add
+    delete_codes: Enter codes to remove
+    pagination:
+        title: Pagination
+        previous: Previous
+        next: Next
+
+information:
+    code:
+        no_data: Sorry, no codes
+        count: Codes count
+
+menu:
+    codes:
+        all: Show all codes
+        add_random: Add 10 random codes
+        add: Add 1 code
+        delete: Remove codes
+    simple:
+        add: Add
+
+title:
+    codes:
+        list: All codes
+        delete_form: Remove codes
+        add_form: Add 1 code
+
+flash:
+    code:
+        random_codes_added: Random codes have been added
+        your_code_added: Your code has been added
+        delete:
+            nonexisting_codes: At least 1 code is incorrect. Removal failed.
+            success: Codes have been removed
+
+action:
+    delete: Remove

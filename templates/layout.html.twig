@@ -85,6 +85,17 @@
                     <a href="{{ path('app.code.delete') }}">{{ 'menu.codes.delete' | trans }}</a>
                 </li>
             </ul>
+            <ul class="nav navbar-nav navbar-right">
+                {% for locale in available_locales | split('|') %}
+                    <li>
+                        <a href="{{ path(app.request.get('_route'), {_locale: locale}) }}"
+                                {% if locale == app.request.locale %} class="bg-info"{% endif %}
+                        >
+                            {{ locale | upper }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
         </div><!--/.navbar-collapse -->
     </div>
 </nav>

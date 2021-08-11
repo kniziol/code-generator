@@ -1,0 +1,7 @@
+error_page:
+    action:
+        back_to_app: Back to app
+    title:
+        403: You have no permission for this page
+        404: Page does not exist
+        500: Oops, an error occurred...
