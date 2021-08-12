@@ -18,7 +18,7 @@ label:
         save: Zapisz
         your_code: Twój kod
         add: Dodaj
-    delete_codes: Podaj kody do usunięcia
+    delete_codes: Podaj kody do usunięcia (oddzielone enterami)
     pagination:
         title: Stronicowanie
         previous: Poprzednie

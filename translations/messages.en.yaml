@@ -18,7 +18,7 @@ label:
         save: Save
         your_code: Your code
         add: Add
-    delete_codes: Enter codes to remove
+    delete_codes: Enter codes to remove (separated by enter)
     pagination:
         title: Pagination
         previous: Previous
